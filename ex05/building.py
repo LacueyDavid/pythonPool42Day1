@@ -14,10 +14,14 @@ def getFirstStdinLine() -> str:
     """Get the first line in stdin"""
     line = ""
     while mylen(line) == 0:
-        print("Please provide a string:")
-        for firstLine in sys.stdin:
-            line = firstLine
-            break
+        try:
+            print("Please provide a string:")
+            for firstLine in sys.stdin:
+                line = firstLine
+                break
+        except KeyboardInterrupt:
+            print("\nInput cancelled by user (Ctrl+C). Exiting.")
+            sys.exit(0)
     return line
 
 
@@ -59,13 +63,16 @@ def main() -> None:
     args = sys.argv
     argsLen = mylen(args)
 
-    if argsLen < 2:
-        line = getFirstStdinLine()
-        countULPDS(line)
-    elif argsLen > 2:
-        print("AssertionError: more than one argument is provided")
-    else:
-        countULPDS(args[1])
+    try:
+        assert argsLen <= 2, "more than one argument is provided"
+        if argsLen < 2:
+            line = getFirstStdinLine()
+            countULPDS(line)
+        elif argsLen == 2:
+            countULPDS(args[1])
+    except AssertionError as msg:
+        print(f"AssertionError: {msg}")
+        sys.exit(1)
     return
 
 
