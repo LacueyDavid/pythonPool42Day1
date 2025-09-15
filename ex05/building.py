@@ -1,7 +1,7 @@
 import sys
 
 
-def mylen(seq):
+def mylen(seq: str) -> int:
     """Counts the length of a sequence without using len()."""
 
     count = 0
@@ -10,28 +10,20 @@ def mylen(seq):
     return count
 
 
-def main():
-    """Takes a single string argument and displays the sums of its upper-case characters, lower-case
-characters, punctuation characters, digits and spaces."""
-
-    args = sys.argv
-    argsLen = mylen(args)
-
-    if argsLen < 2:
-        line = ""
+def getFirstStdinLine() -> str:
+    """Get the first line in stdin"""
+    line = ""
+    while mylen(line) == 0:
+        print("Please provide a string:")
         for firstLine in sys.stdin:
             line = firstLine
             break
-        countULPDS(line)
-    elif argsLen > 2:
-        print("Error: too much arguments.")
-    else:
-        countULPDS(args[1])
-    return
+    return line
 
 
-def countULPDS(line):
-    """just counting word and printing"""
+def countULPDS(line: str) -> None:
+    """(ULPDS stand for upper lower punctuation digit spaces) Takes a single string argument and displays the sums of its upper-case characters, lower-case
+characters, punctuation characters, digits and spaces."""
 
     upper = 0
     lower = 0
@@ -59,6 +51,21 @@ def countULPDS(line):
         f"{spaces} spaces\n"
         f"{digits} digits"
     )
+    return
+
+
+def main() -> None:
+    """check if args are valid and then pass the string to countULPDS"""
+    args = sys.argv
+    argsLen = mylen(args)
+
+    if argsLen < 2:
+        line = getFirstStdinLine()
+        countULPDS(line)
+    elif argsLen > 2:
+        print("AssertionError: more than one argument is provided")
+    else:
+        countULPDS(args[1])
     return
 
 
