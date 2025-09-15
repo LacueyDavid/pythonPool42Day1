@@ -57,19 +57,22 @@ def my_atoi(s):
 
 
 def main():
-    seq = sys.argv
-    if mylen(seq) != 2:
-        print("AssertionError: more than one argument is provided")
+    seq: list[str] = sys.argv
+    len: int = mylen(seq)
+    if len == 1:
         return
-    arg = clean_arg(seq[1])
-    if not is_valid_integer(arg):
-        print("AssertionError: argument is not an integer")
-        return
-    result = my_atoi(arg)
-    if result % 2 == 0:
-        print("I'm Odd.")
-    else:
-        print("I'm Even.")
+    try:
+        assert len <= 2, "AssertionError: more than one argument is provided"
+        arg = clean_arg(seq[1])
+        assert is_valid_integer(
+            arg), "AssertionError: argument is not an integer"
+        result = my_atoi(arg)
+        if result % 2 == 0:
+            print("I'm Even.")
+        else:
+            print("I'm Odd.")
+    except AssertionError as msg:
+        print(msg)
 
 
 main()
