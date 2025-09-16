@@ -1,20 +1,15 @@
 def NULL_not_found(object: any) -> int:
-    obj_type = type(object)
-    if obj_type == int and object == 0:
-        print("Zero : 0", obj_type)
-        return 0
-    elif object is None:
-        print("Nothing: None", obj_type)
-        return 0
-    elif obj_type == float and object != object:
-        print("Cheese: nan", obj_type)
-        return 0
-    elif object == "":
-        print("Empty", obj_type)
-        return 0
+    if object is None:
+        print("Nothing :", object.__class__)
+    elif object.__class__ is float and object != object:
+        print("Cheese :", object.__class__)
+    elif object.__class__ is int and object == 0:
+        print("Zero :", object.__class__)
+    elif object == '':
+        print("Empty :", object.__class__)
     elif object is False:
-        print("Fake: False", obj_type)
-        return 0
+        print("Fake :", object.__class__)
     else:
-        print("Type not found")
+        print("Type not Found")
         return 1
+    return 0
